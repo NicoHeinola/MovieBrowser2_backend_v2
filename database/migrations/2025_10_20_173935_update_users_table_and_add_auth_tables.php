@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('is_admin');
             $table->renameColumn('username', 'name');
             $table->string('email')->after('name');
             $table->timestamp('email_verified_at')->nullable()->after('email');
@@ -45,7 +44,6 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(['email', 'email_verified_at']);
             $table->renameColumn('name', 'username');
-            $table->boolean('is_admin')->default(false)->after('password');
         });
     }
 };

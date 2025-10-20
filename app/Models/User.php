@@ -18,7 +18,8 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'username',
+        'name',
+        'email',
         'password',
         'is_admin',
     ];
@@ -45,5 +46,21 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_admin' => 'boolean',
         ];
+    }
+
+    /**
+     * Get the user's watch seasons.
+     */
+    public function userWatchSeasons()
+    {
+        return $this->hasMany(UserWatchSeason::class);
+    }
+
+    /**
+     * Get the user's show statuses.
+     */
+    public function userShowStatuses()
+    {
+        return $this->hasMany(UserShowStatus::class);
     }
 }
