@@ -11,16 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('episodes', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('season_id')->constrained('seasons');
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->integer('number');
-            $table->string('type')->nullable();
-            $table->string('filename')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('episodes')) {
+            Schema::create('episodes', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('season_id')->constrained('seasons');
+                $table->string('title');
+                $table->text('description')->nullable();
+                $table->integer('number');
+                $table->string('type')->nullable();
+                $table->string('filename')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**

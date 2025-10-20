@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('website_tags', function (Blueprint $table) {
-            $table->id()->index();
-            $table->foreignId('website_id')->constrained('websites')->onDelete('cascade');
-            $table->string('name');
-            $table->unique(['website_id', 'name'], 'uq_website_tag');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('website_tags')) {
+            Schema::create('website_tags', function (Blueprint $table) {
+                $table->id()->index();
+                $table->foreignId('website_id')->constrained('websites')->onDelete('cascade');
+                $table->string('name');
+                $table->unique(['website_id', 'name'], 'uq_website_tag');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

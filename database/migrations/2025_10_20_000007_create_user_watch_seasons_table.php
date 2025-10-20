@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_watch_seasons', function (Blueprint $table) {
-            $table->id()->index();
-            $table->foreignId('season_id')->constrained('seasons')->onDelete('cascade');
-            $table->foreignId('show_id')->constrained('shows')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('user_watch_seasons')) {
+            Schema::create('user_watch_seasons', function (Blueprint $table) {
+                $table->id()->index();
+                $table->foreignId('season_id')->constrained('seasons')->onDelete('cascade');
+                $table->foreignId('show_id')->constrained('shows')->onDelete('cascade');
+                $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

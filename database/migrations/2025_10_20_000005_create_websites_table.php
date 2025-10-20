@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('websites', function (Blueprint $table) {
-            $table->id();
-            $table->string('url')->unique()->index();
-            $table->string('title')->nullable();
-            $table->string('icon')->nullable();
-            $table->text('description')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('websites')) {
+            Schema::create('websites', function (Blueprint $table) {
+                $table->id();
+                $table->string('url')->unique()->index();
+                $table->string('title')->nullable();
+                $table->string('icon')->nullable();
+                $table->text('description')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
